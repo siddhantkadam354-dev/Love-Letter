@@ -1,0 +1,466 @@
+/* ── Polaroid Wall Gallery ── */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Cormorant+Garamond:ital,wght@1,300;1,600&family=Quicksand:wght@400;500;600&display=swap');
+
+/* ───────── Root */
+.gallery-root {
+    min-height: 100vh;
+    background: #0a0010;
+    color: #fff;
+    font-family: 'Quicksand', sans-serif;
+    position: relative;
+    overflow-x: hidden;
+    padding-bottom: 120px;
+}
+
+/* ───────── Background Image */
+.gallery-bg {
+    position: fixed;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.50;
+    /* Low opacity as requested */
+    filter: blur(2px) saturate(1.2);
+}
+
+.gallery-bg-overlay {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10, 0, 16, 0.4) 0%, rgba(10, 0, 16, 0.8) 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Ambient purple glow blobs */
+.gallery-root::before {
+    content: '';
+    position: fixed;
+    top: -10vh;
+    left: -10vw;
+    width: 70vw;
+    height: 70vh;
+    background: radial-gradient(ellipse, rgba(120, 0, 180, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.gallery-root::after {
+    content: '';
+    position: fixed;
+    bottom: -10vh;
+    right: -10vw;
+    width: 60vw;
+    height: 60vh;
+    background: radial-gradient(ellipse, rgba(255, 20, 100, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ───────── Floating sparkles */
+.gallery-sparkles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.gallery-sparkle-dot {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 150, 220, 0.6);
+    animation: sparkleFade var(--dur, 4s) ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+}
+
+@keyframes sparkleFade {
+
+    0%,
+    100% {
+        opacity: 0;
+        transform: scale(0.5) translateY(0);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1) translateY(-12px);
+    }
+}
+
+/* ───────── Hero header */
+.gallery-hero {
+    text-align: center;
+    padding: 4rem 1rem 1rem;
+    position: relative;
+    z-index: 2;
+}
+
+.gallery-hero-title {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(2.8rem, 8vw, 5rem);
+    font-weight: 700;
+    background: linear-gradient(135deg, #ff69b4, #fff 50%, #da70d6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+}
+
+.gallery-hero-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: rgba(255, 180, 220, 0.6);
+    letter-spacing: 0.05em;
+}
+
+/* ───────── Chapter heading */
+.gallery-chapter-heading {
+    text-align: center;
+    margin: 3.5rem 0 0.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.gallery-chapter-num {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255, 105, 180, 0.5);
+    margin-bottom: 4px;
+}
+
+.gallery-chapter-name {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(1.6rem, 5vw, 2.4rem);
+    color: rgba(255, 230, 245, 0.85);
+    font-weight: 600;
+}
+
+.gallery-chapter-line {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 105, 180, 0.5), transparent);
+    margin: 0.7rem auto 0;
+}
+
+/* ───────── Polaroid grid */
+.polaroid-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 28px 20px;
+    padding: 2rem 2rem 1rem;
+    position: relative;
+    z-index: 2;
+}
+
+/* ───────── Single Polaroid */
+.polaroid {
+    background: #fff;
+    padding: 10px 10px 36px;
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.55),
+        0 2px 8px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s;
+    position: relative;
+    flex-shrink: 0;
+    width: 180px;
+}
+
+/* Random tilt via CSS variables */
+.polaroid {
+    transform: rotate(var(--tilt, -2deg));
+}
+
+.polaroid:hover {
+    transform: rotate(0deg) scale(1.08) translateY(-6px);
+    box-shadow:
+        0 24px 60px rgba(0, 0, 0, 0.7),
+        0 0 40px rgba(255, 105, 180, 0.2);
+    z-index: 10;
+}
+
+.polaroid img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    display: block;
+    filter: saturate(1.05) contrast(1.02);
+}
+
+/* Handwritten caption */
+.polaroid-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Caveat', cursive;
+    font-size: 0.88rem;
+    color: #333;
+    text-align: center;
+    padding: 0 6px;
+    line-height: 1.2;
+}
+
+/* Heart sticker on some polaroids */
+.polaroid-heart {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-size: 1.3rem;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    transform: rotate(15deg);
+    z-index: 3;
+}
+
+/* Pin at the top on featured ones */
+.polaroid-pin {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #ff6b6b, #cc0000);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    z-index: 3;
+}
+
+/* ───────── Lightbox */
+.lightbox-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.lightbox-toolbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent);
+    z-index: 2;
+}
+
+.lightbox-close {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    color: #fff;
+    font-size: 0.85rem;
+    font-family: 'Quicksand', sans-serif;
+    cursor: pointer;
+    padding: 5px 16px;
+    backdrop-filter: blur(8px);
+}
+
+.lightbox-counter {
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.45);
+    font-family: 'Caveat', cursive;
+    font-size: 1rem;
+}
+
+.lightbox-img-wrap {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 60px 80px;
+}
+
+.lightbox-img-wrap img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 3px;
+    box-shadow: 0 0 80px rgba(255, 105, 180, 0.15);
+    user-select: none;
+}
+
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    z-index: 3;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.lightbox-nav:hover {
+    background: rgba(255, 105, 180, 0.2);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.lightbox-nav.prev {
+    left: 14px;
+}
+
+.lightbox-nav.next {
+    right: 14px;
+}
+
+.lightbox-nav svg {
+    width: 16px;
+    height: 16px;
+    stroke: white;
+    fill: none;
+    stroke-width: 2.5;
+}
+
+.lightbox-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 16px 24px 28px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+    text-align: center;
+    font-family: 'Caveat', cursive;
+    font-size: 1.1rem;
+    color: rgba(255, 200, 230, 0.7);
+}
+
+/* ───────── Continue button */
+.gallery-continue {
+    text-align: center;
+    padding: 4rem 1rem 3rem;
+    position: relative;
+    z-index: 10;
+    clear: both;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gallery-continue p {
+    font-family: 'Caveat', cursive;
+    font-size: 1.2rem;
+    color: rgba(255, 180, 220, 0.6);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.05em;
+}
+
+.gallery-continue-btn {
+    padding: 1rem 3rem;
+    background: linear-gradient(135deg, #ff2d85, #9b0060);
+    border: none;
+    border-radius: 50px;
+    color: white;
+    font-size: 1.1rem;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 0 30px rgba(255, 45, 133, 0.4);
+    letter-spacing: 0.04em;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.gallery-continue-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 50px rgba(255, 45, 133, 0.6);
+}
+
+@media (max-width: 600px) {
+    .gallery-hero {
+        padding: 3rem 1rem 1rem;
+    }
+
+    .gallery-hero-title {
+        font-size: 3rem;
+    }
+
+    .polaroid-grid {
+        gap: 20px 12px;
+        padding: 1.5rem 1rem;
+    }
+
+    .polaroid {
+        width: 145px;
+        padding: 8px 8px 30px;
+    }
+
+    .polaroid img {
+        height: 130px;
+    }
+
+    .polaroid-caption {
+        height: 30px;
+        font-size: 0.8rem;
+    }
+
+    .lightbox-img-wrap {
+        padding: 60px 20px 100px;
+    }
+
+    .lightbox-nav {
+        width: 36px;
+        height: 36px;
+    }
+
+    .lightbox-nav.prev {
+        left: 8px;
+    }
+
+    .lightbox-nav.next {
+        right: 8px;
+    }
+
+    .gallery-continue {
+        padding: 3rem 1.5rem 2.5rem;
+    }
+
+    .gallery-continue p {
+        font-size: 1.1rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .gallery-continue-btn {
+        width: 100%;
+        max-width: 280px;
+        padding: 0.9rem 1.5rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .polaroid {
+        width: 130px;
+    }
+
+    .polaroid img {
+        height: 115px;
+    }
+}

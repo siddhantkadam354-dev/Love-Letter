@@ -1,0 +1,185 @@
+/* ── Global Landing Page ── */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=Quicksand:wght@400;500;600&display=swap');
+
+.landing-root {
+    min-height: 100vh;
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    cursor: none;
+    font-family: 'Quicksand', sans-serif;
+}
+
+/* ── Video Background ── */
+.landing-video-bg {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* ── Dark overlay so text is readable ── */
+.landing-video-overlay {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg,
+            rgba(10, 0, 25, 0.72) 0%,
+            rgba(30, 0, 50, 0.65) 50%,
+            rgba(10, 0, 25, 0.72) 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* ── Custom cursor ── */
+.landing-cursor {
+    width: 18px;
+    height: 18px;
+    background: radial-gradient(circle, #ff69b4, #ff2d85);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 12px #ff69b4, 0 0 30px rgba(255, 105, 180, 0.4);
+}
+
+/* ── Stars canvas layer ── */
+.stars-layer {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ── Heart burst particles ── */
+.heart-particle {
+    position: fixed;
+    pointer-events: none;
+    z-index: 1;
+    font-size: 1.4rem;
+    will-change: transform, opacity;
+}
+
+/* ── Main card ── */
+.landing-card {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 3rem 4rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 105, 180, 0.2);
+    border-radius: 30px;
+    backdrop-filter: blur(18px);
+    box-shadow:
+        0 0 60px rgba(255, 45, 133, 0.15),
+        0 0 120px rgba(180, 0, 100, 0.08),
+        inset 0 0 40px rgba(255, 105, 180, 0.04);
+    max-width: 680px;
+    width: 90%;
+}
+
+.landing-pre {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.4em;
+    color: rgba(255, 150, 200, 0.7);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.landing-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 9vw, 6rem);
+    font-weight: 600;
+    background: linear-gradient(135deg, #ff69b4, #fff0f8, #da70d6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.1;
+    margin-bottom: 0.3rem;
+}
+
+.landing-ily {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.5rem, 4vw, 2.6rem);
+    font-style: italic;
+    color: rgba(255, 180, 220, 0.9);
+    font-weight: 300;
+    margin-bottom: 2rem;
+}
+
+.landing-sub {
+    font-size: 1rem;
+    color: rgba(255, 200, 230, 0.7);
+    max-width: 420px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.8;
+}
+
+.landing-btn {
+    padding: 0.9rem 2.5rem;
+    background: linear-gradient(135deg, #ff2d85, #c2006f);
+    border: none;
+    border-radius: 50px;
+    color: white;
+    font-size: 1.05rem;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    box-shadow: 0 0 25px rgba(255, 45, 133, 0.5), 0 5px 20px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.3s;
+}
+
+.landing-btn:hover {
+    box-shadow: 0 0 45px rgba(255, 45, 133, 0.8), 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* ── Floating emojis ── */
+.float-emoji {
+    position: fixed;
+    pointer-events: none;
+    z-index: 1;
+    will-change: transform;
+}
+
+@media (max-width: 600px) {
+    .landing-card {
+        padding: 2.5rem 1.5rem;
+    }
+
+    .landing-name {
+        font-size: 3.2rem;
+    }
+
+    .landing-ily {
+        font-size: 1.4rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .landing-sub {
+        font-size: 0.95rem;
+        margin-bottom: 2rem;
+    }
+}
+
+@media (max-height: 700px) {
+    .landing-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .landing-name {
+        font-size: 2.8rem;
+    }
+
+    .landing-ily {
+        margin-bottom: 1rem;
+    }
+}

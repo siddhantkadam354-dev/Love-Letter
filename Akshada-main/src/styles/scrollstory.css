@@ -1,0 +1,212 @@
+/* ── Scrollytelling Page ── */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Quicksand:wght@400;500;600&display=swap');
+
+/* Each chapter = 100vh tall sticky container */
+.scroll-story {
+    position: relative;
+    font-family: 'Quicksand', sans-serif;
+}
+
+/* ── Chapter block ── */
+.chapter {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ── Video fills chapter ── */
+.chapter-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    transition: filter 0.8s ease;
+}
+
+.chapter.active .chapter-video {
+    filter: brightness(0.55) saturate(1.15);
+}
+
+.chapter:not(.active) .chapter-video {
+    filter: brightness(0.25) saturate(0.6);
+}
+
+/* ── Dark vignette overlay ── */
+.chapter-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.55) 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* ── Text content ── */
+.chapter-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 2.5rem 2rem;
+    max-width: 680px;
+    pointer-events: none;
+}
+
+.chapter-number {
+    display: inline-block;
+    font-size: 0.75rem;
+    letter-spacing: 0.4em;
+    color: rgba(255, 105, 180, 0.8);
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    padding: 0.3rem 1.2rem;
+    border: 1px solid rgba(255, 105, 180, 0.3);
+    border-radius: 50px;
+    backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.chapter-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 5vw, 3.8rem);
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 1.2rem;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6);
+}
+
+.chapter-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1rem, 2.5vw, 1.35rem);
+    font-style: italic;
+    color: rgba(255, 200, 230, 0.92);
+    line-height: 1.9;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* ── Progress indicator ── */
+.scroll-progress {
+    position: fixed;
+    right: 1.8rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.progress-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 105, 180, 0.4);
+    transition: all 0.4s ease;
+    cursor: pointer;
+}
+
+.progress-dot.active {
+    background: #ff69b4;
+    box-shadow: 0 0 10px rgba(255, 105, 180, 0.8);
+    transform: scale(1.4);
+}
+
+/* ── Scroll hint at bottom of first chapter ── */
+.scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    animation: scrollBounce 2s ease-in-out infinite;
+}
+
+.scroll-hint svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: rgba(255, 105, 180, 0.7);
+    stroke-width: 2;
+}
+
+@keyframes scrollBounce {
+
+    0%,
+    100% {
+        transform: translateX(-50%) translateY(0);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: translateX(-50%) translateY(8px);
+        opacity: 1;
+    }
+}
+
+/* ── Next page button on last chapter ── */
+.next-page-btn {
+    pointer-events: all;
+    margin-top: 2rem;
+    padding: 0.85rem 2.2rem;
+    background: linear-gradient(135deg, #ff2d85, #9b0060);
+    border: none;
+    border-radius: 50px;
+    color: white;
+    font-size: 1rem;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 0 25px rgba(255, 45, 133, 0.5);
+    transition: box-shadow 0.3s, transform 0.2s;
+    letter-spacing: 0.05em;
+}
+
+.next-page-btn:hover {
+    box-shadow: 0 0 45px rgba(255, 45, 133, 0.8);
+    transform: scale(1.05);
+}
+
+@media (max-width: 600px) {
+    .chapter-content {
+        padding: 2rem 1.2rem;
+    }
+
+    .chapter-title {
+        font-size: 1.85rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .chapter-quote {
+        font-size: 0.95rem;
+        line-height: 1.7;
+    }
+
+    .scroll-progress {
+        display: none;
+    }
+
+    .scroll-hint {
+        bottom: 1.5rem;
+        font-size: 0.65rem;
+    }
+
+    .next-page-btn {
+        width: 100%;
+        padding: 0.8rem 1.5rem;
+        font-size: 0.95rem;
+    }
+}

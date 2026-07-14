@@ -1,0 +1,319 @@
+/* ── Memories / Love Letter Page ── */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=Quicksand:wght@400;500;600&display=swap');
+
+.mem-root {
+    min-height: 100vh;
+    background: #000;
+    font-family: 'Quicksand', sans-serif;
+    color: rgba(255, 220, 240, 0.9);
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* ILU video background */
+.mem-bg-video {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Dark overlay so content is readable */
+.mem-bg-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 1;
+    pointer-events: none;
+}
+
+
+/* ambient sparkle layer */
+.mem-sparkle {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background-image:
+        radial-gradient(circle 1px at 10% 20%, rgba(255, 255, 255, 0.5) 0%, transparent 100%),
+        radial-gradient(circle 1px at 80% 60%, rgba(255, 105, 180, 0.5) 0%, transparent 100%),
+        radial-gradient(circle 1px at 50% 85%, rgba(255, 255, 255, 0.4) 0%, transparent 100%),
+        radial-gradient(circle 1px at 30% 55%, rgba(218, 112, 214, 0.5) 0%, transparent 100%),
+        radial-gradient(circle 1px at 70% 15%, rgba(255, 255, 255, 0.4) 0%, transparent 100%);
+    animation: sparkleShift 12s ease-in-out infinite alternate;
+}
+
+@keyframes sparkleShift {
+    from {
+        transform: translateY(0px);
+    }
+
+    to {
+        transform: translateY(-15px);
+    }
+}
+
+.mem-hearts {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 10;
+    /* above video + overlay + sparkle */
+}
+
+.mem-heart {
+    position: absolute;
+    font-size: 1.6rem;
+    animation: floatUp var(--dur, 7s) ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+    filter: drop-shadow(0 0 6px rgba(255, 80, 150, 0.7));
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translate(0, 110vh) rotate(0deg);
+        opacity: 0.7;
+    }
+
+    100% {
+        transform: translate(var(--tx, 0), -10vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* ── Hero ── */
+.mem-hero {
+    text-align: center;
+    padding: 5rem 2rem 2rem;
+    position: relative;
+    z-index: 3;
+}
+
+.mem-hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    font-weight: 600;
+    background: linear-gradient(135deg, #ff69b4, #fff 50%, #da70d6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+.mem-hero p {
+    font-size: 1.1rem;
+    color: rgba(255, 180, 220, 0.75);
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.8;
+    font-style: italic;
+}
+
+/* ── Photo Cards ── */
+.mem-gallery {
+    max-width: 1100px;
+    margin: 3rem auto;
+    padding: 0 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    position: relative;
+    z-index: 3;
+}
+
+.mem-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 105, 180, 0.2);
+    border-radius: 22px;
+    padding: 1.2rem;
+    backdrop-filter: blur(12px);
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.4s, transform 0.4s;
+    box-shadow: 0 0 30px rgba(255, 45, 133, 0.07);
+}
+
+.mem-card:hover {
+    border-color: rgba(255, 105, 180, 0.5);
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: 0 0 50px rgba(255, 45, 133, 0.18);
+}
+
+.mem-card img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 14px;
+    margin-bottom: 1rem;
+    transition: transform 0.5s;
+}
+
+.mem-card:hover img {
+    transform: scale(1.04);
+}
+
+.mem-card-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-style: italic;
+    color: #ff69b4;
+    margin-bottom: 0.4rem;
+}
+
+.mem-card-caption {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: rgba(255, 200, 230, 0.7);
+}
+
+/* ── Love Letter Section ── */
+.mem-letter {
+    max-width: 720px;
+    margin: 4rem auto;
+    padding: 3rem 3.5rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 105, 180, 0.25);
+    border-radius: 28px;
+    backdrop-filter: blur(16px);
+    box-shadow: 0 0 80px rgba(255, 45, 133, 0.1);
+    position: relative;
+    z-index: 3;
+    text-align: center;
+}
+
+.mem-letter h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 600;
+    color: #ff69b4;
+    margin-bottom: 0.4rem;
+    animation: heartbeat 3s ease-in-out infinite;
+}
+
+.mem-letter-divider {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #ff69b4, transparent);
+    margin: 1rem auto 2rem;
+    border: none;
+}
+
+.mem-letter p {
+    font-size: 1.05rem;
+    line-height: 2;
+    color: rgba(255, 210, 235, 0.85);
+    margin-bottom: 1.2rem;
+}
+
+.mem-letter .signature {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-style: italic;
+    color: rgba(255, 150, 200, 0.9);
+    margin-top: 2rem;
+}
+
+/* ── CTA button ── */
+.mem-btn {
+    display: inline-block;
+    margin-top: 2.5rem;
+    padding: 1rem 2.5rem;
+    background: linear-gradient(135deg, #ff2d85, #9b0060);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 0 30px rgba(255, 45, 133, 0.4);
+    animation: floatBtn 3s ease-in-out infinite;
+    transition: box-shadow 0.3s;
+}
+
+.mem-btn:hover {
+    box-shadow: 0 0 55px rgba(255, 45, 133, 0.7);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(#ff69b4, #da70d6);
+    border-radius: 6px;
+}
+
+@keyframes heartbeat {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.06);
+    }
+}
+
+@keyframes floatBtn {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+@media (max-width: 768px) {
+    .mem-gallery {
+        grid-template-columns: 1fr;
+        padding: 0 1rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .mem-hero {
+        padding: 4rem 1.5rem 1.5rem;
+    }
+
+    .mem-hero h1 {
+        font-size: 2.2rem;
+    }
+
+    .mem-hero p {
+        font-size: 0.95rem;
+        line-height: 1.7;
+    }
+
+    .mem-card {
+        padding: 1rem;
+        border-radius: 18px;
+    }
+
+    .mem-card img {
+        height: 200px;
+        border-radius: 12px;
+    }
+
+    .mem-card-label {
+        font-size: 1.2rem;
+    }
+
+    .mem-card-caption {
+        font-size: 0.88rem;
+    }
+}
